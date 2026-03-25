@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     flake-parts.url = "github:hercules-ci/flake-parts";
-    engineering-standards.url = "github:famedly/engineering-standards";
+    engineering-standards.url = "path:/Users/niklaszender/Git/engineering-standards";
 
   };
 

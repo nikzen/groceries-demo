@@ -1,0 +1,38 @@
+# managed-by: engineering-standards — do not edit manually
+# Regenerate with: nix run .#regenerateStandards
+name: CI
+on:
+  push:
+    branches: ["main"]
+    tags: ["*"]
+  pull_request:
+    branches: ["**"]
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - ready_for_review
+  merge_group:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+  nix-checks:
+    name: "Nix checks"
+    runs-on: arm-ubuntu-latest-8core
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: cachix/install-nix-action@f0fe604a36633d4d46b4276fd62b8c7d7e76e74c
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+      - uses: cachix/cachix-action@0fc020193524c3ed911b7e4e94571fdc4bfb6fe9
+        with:
+          name: famedly
+          signingKey: "${{ secrets.CACHIX_SIGNING_KEY_FAMEDLY }}"
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN_FAMEDLY }}"
+        continue-on-error: true
+      - name: Run all checks
+        run: nix flake check -L
