@@ -1,13 +1,40 @@
 # managed-by: engineering-standards — do not edit manually
+# Regenerate with: nix run .#regenerateStandards
 version: 2
+registries:
+  private-github:
+    type: git
+    url: https://github.com
+    username: x-access-token
+    password: ${{secrets.DEPENDABOT_SECRET}}
 updates:
-  - package-ecosystem: github-actions
-    directory: /
+  - package-ecosystem: "github-actions"
+    directory: "/"
     schedule:
-      interval: weekly
+      interval: "daily"
+      timezone: "Europe/Berlin"
+    groups:
+      actions:
+        patterns: ["*"]
+    commit-message:
+      prefix: "chore(deps): "
+
+  - package-ecosystem: "pub"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      timezone: "Europe/Berlin"
     open-pull-requests-limit: 10
-- package-ecosystem: pub
-  directory: /
-  schedule:
-    interval: weekly
-  open-pull-requests-limit: 5
+    registries:
+      - private-github
+    groups:
+      major:
+        update-types: ["major"]
+      minor-and-patch:
+        update-types: ["minor", "patch"]
+    commit-message:
+      prefix: "chore(deps): "
+      include: "scope"
+    cooldown:
+      default-days: 14
+      semver-major-days: 14

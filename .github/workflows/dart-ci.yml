@@ -1,0 +1,20 @@
+# managed-by: engineering-standards — do not edit manually
+# Regenerate with: nix run .#regenerateStandards
+name: Dart CI
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["**"]
+    types: [opened, reopened, synchronize, ready_for_review]
+  merge_group:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+  ci:
+    uses: famedly/engineering-standards/.github/workflows/dart-ci.yml@main
+
+    secrets: inherit

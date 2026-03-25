@@ -7,8 +7,8 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1774473062,
-        "narHash": "sha256-Jb9jlST5HhDrGF4u8kIhTrSch5RrMKX9AAcAZef/wUk=",
+        "lastModified": 1774478867,
+        "narHash": "sha256-VEao4aK3EyxwHAJrssyRsHdqXHKm/FATr91oH2qbLiU=",
         "path": "/Users/niklaszender/Git/engineering-standards",
         "type": "path"
       },
