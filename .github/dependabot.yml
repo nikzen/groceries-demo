@@ -1,0 +1,13 @@
+# managed-by: engineering-standards 0.1.0
+
+# managed-by: engineering-standards
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+  - package-ecosystem: pub
+    directory: /
+    schedule:
+      interval: weekly
